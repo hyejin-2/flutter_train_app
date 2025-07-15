@@ -154,10 +154,8 @@ Flutter 기차 예매 서비스
 <br/>
 
 ## Trouble Shooting
-#### 1. AppBar / Background 기본 색상 구분
-#### 2. 다크 모드 시 색상'만' 변경
-#### SeatPage에서 출발역 도착역 표기 가운데 정렬
-
-- Study hard &ensp;🚀
+#### 1. SeatPage에서 출발역 도착역 표기 가운데 정렬
+#### 2. AppBar / Background 기본 색상 구분
+#### 3. 다크 모드 시 색상'만' 변경
 
 <br/>

@@ -101,7 +101,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: const Text(
                   '좌석 선택',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

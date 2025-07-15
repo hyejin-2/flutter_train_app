@@ -37,6 +37,8 @@ Flutter 기차 예매 서비스
 <br/>
 
 ## 앱 UI Flow
+- 좌석 선택 페이지: SeatPage의 회색 박스 옆 `선택됨` → `선택 안 됨` 으로 수정
+
   <img alt="UIFlow1" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FFJ7ux%2FbtsPj1aW6Nm%2FAAAAAAAAAAAAAAAAAAAAAPEhIj9CXSrZd1mQKVsVO629yaNP_fsws1KGPlyFsDXR%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DgVyCTJN2i5H64AtkFWTyu5gF7Lk%253D"/>
   <img alt="UIFlow2" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbabaJn%2FbtsPk5RdAGl%2FAAAAAAAAAAAAAAAAAAAAAPGbZ6ipfFPhcHUerR2abdOL7-Dm670BIhKtEQLGxgRR%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DfZnK8gOt63Cvp5Nig9KHcTpYABQ%253D"/>
   <img alt="UIFlow3" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fdotts3%2FbtsPjlnNb2U%2FAAAAAAAAAAAAAAAAAAAAAEBthL92rcrOrUOmu4w8bipRSfW52fOdotrmW_D_SyKZ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DOzk4zdBAsI4m5Wdh%252F1b0dxSaCNk%253D"/>
@@ -149,13 +151,52 @@ Flutter 기차 예매 서비스
 - Scaffold 배경색 테마 지정은 ThemeData의 `scaffoldBackgroundColor` 속성을 이용합니다.
 
 [예시화면]
+- 좌석 선택 페이지: SeatPage의 회색 박스 옆 `선택됨` → `선택 안 됨` 으로 수정
+
   <img alt="다크테마적용" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FldUDk%2FbtsPkPARKUt%2FAAAAAAAAAAAAAAAAAAAAABL88AWmPChSLoaDT6PQJk4jdirgQhHe_gkpfTGzImyF%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DflXbmN0J%252FmJHEKcz9SNwE6tmg80%253D"/>
 
 <br/>
 
 ## Trouble Shooting
-#### 1. SeatPage에서 출발역 도착역 표기 가운데 정렬
+#### 1. SeatPage에서 출발역/도착역 표기 가운데 정렬
+[상황]
+- 출발역은 중앙 정렬되었으나 도착역은 수평 중앙 정렬이 안됨
+
+[원인]
+- Text 위젯의 textAlign이 없으면 Expanded로 감싸도 텍스트가 한쪽에 붙을 수 있음
+
+[해결]
+- Row의 crossAxisAlignment를 CrossAxisAlignment.center로 설정
+- 각 Text 위젯에 textAlign: TextAlign.center를 적용해 내부에서도 텍스트 중앙 정렬되도록 함
+
 #### 2. AppBar / Background 기본 색상 구분
-#### 3. 다크 모드 시 색상'만' 변경
+[상황]
+- AppBar 배경색과 Scaffold 배경색이 디자인 가이드에 맞지 않음
+- 라이트/다크 모드 전환 시 AppBar와 배경이 구분이 안됨
+
+[원인]
+- ThemeData의 colorScheme.surface, background 혼동
+Scaffold.backgroundColor와 AppBar.backgroundColor를 동일한 colorScheme 값으로 지정함(?)
+- Material 개념
+
+[해결]
+- Scaffold: colorScheme.background 사용 → 배경색
+- AppBar는 colorScheme.surface로 분리해 Scaffold 배경과 구분 
+- 다크 모드 Theme.of(context).colorScheme 적용
+
+#### 3. 다크 모드 시 색상만 변경
+[상황]
+- 다크 모드로 전환 시 레이아웃, 위젯도 함께 변경
+- 레이아웃 구조 유지하면서 색상만 모드에 맞게 변경되길 원함
+
+[원인]
+- ThemeData에서 다크/라이트용 ColorScheme만 분리하지 않고 전체 ThemeData를 별도로 관리하면서 설정 충돌
+- 코드에서 다크 모드를 수동으로 분기 처리하지 않고, brightness에 따라 위젯 로직이 바뀌게 작성함
+- Theme.of(context).brightness 조건문이 스타일뿐 아니라 레이아웃 구조까지 조건부로 처리될 때 발생
+
+[해결]
+- ThemeMode.system / Theme.of(context).colorScheme 이용
+- 색상만 조건문(Theme.of(context).brightness)으로 분리, 레이아웃 구조는 동일하게 유지
+- ColorScheme.fromSeed(), 기본 색상 톤 seed로 다크/라이트 대응
 
 <br/>

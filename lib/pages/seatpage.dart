@@ -151,7 +151,11 @@ class _SeatPageState extends State<SeatPage> {
                 ),
                 child: const Text(
                   '예매 하기',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

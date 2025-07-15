@@ -11,21 +11,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode
+          .dark, //  themeMode: ThemeMode.system, 시스템 설정에 따라 다크/라이트 자동 전환 < 마지막에 수정할 것
       debugShowCheckedModeBanner: false,
 
+      //라이트
       theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.grey[200],
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.purple,
+          brightness: Brightness.light, // 여기서 지정
+        ),
       ),
+
+      //다크
       darkTheme: ThemeData(
         useMaterial3: true,
-        colorScheme: const ColorScheme.dark(primary: Colors.purple),
-        scaffoldBackgroundColor: Colors.grey[900],
-        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.purple,
+          brightness: Brightness.dark, // 여기서 지정
+        ),
       ),
+
       home: const HomePage(),
     );
   }

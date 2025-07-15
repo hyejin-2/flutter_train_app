@@ -20,7 +20,12 @@ class SeatBox extends StatelessWidget {
         width: 50,
         height: 50,
         decoration: BoxDecoration(
-          color: isSelected ? Colors.purple : Colors.grey[300],
+          //선택 여부에 따라 색상 지정
+          color: isSelected
+              ? Colors.purple
+              : Theme.of(context).brightness == Brightness.light
+              ? Colors.grey[300]!
+              : Colors.grey[600]!,
           borderRadius: BorderRadius.circular(8),
         ),
       ),

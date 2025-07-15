@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'seatpage.dart';
 import 'stationlistpage.dart';
 
@@ -49,19 +50,45 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('기차 예매')),
+      //라이트모드 지정 배경색 / 다크 모드 배경색은 기본
+      backgroundColor: Theme.of(context).brightness == Brightness.light
+          ? Colors.grey[200]
+          : Theme.of(context).colorScheme.background,
+
+      appBar: AppBar(
+        title: const Text('기차 예매'),
+        //AppBar 배경: surface
+        backgroundColor: colorScheme.surface,
+        elevation: 0,
+        foregroundColor: colorScheme.onSurface,
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center, //body 내 위젯 세로 가운데 정렬
           children: [
             Container(
               height: 200,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                //라이트/다크 모드에 따라 다른 색상 + 투명도
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.grey[800]!,
                 borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Row(
                 children: [
@@ -89,22 +116,25 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: ElevatedButton(
+              child: FilledButton(
+                // ✅ Material 3 기본 버튼: FilledButton!
                 onPressed: (departure != null && destination != null)
                     ? goToSeatPage
                     : null,
-                style: ElevatedButton.styleFrom(
+                style: FilledButton.styleFrom(
                   backgroundColor: Colors.purple,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   '좌석 선택',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.white
+                        : Colors.white,
                   ),
                 ),
               ),
@@ -116,6 +146,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget stationBox(String label, String? value, VoidCallback onTap) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return GestureDetector(
       onTap: onTap,
       child: Center(
@@ -124,14 +156,21 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Colors.grey,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey
+                    : colorScheme.onSurfaceVariant,
               ),
             ),
-            const SizedBox(height: 10),
-            Text(value ?? '선택', style: const TextStyle(fontSize: 40)),
+
+            const SizedBox(height: 5),
+
+            Text(
+              value ?? '선택',
+              style: TextStyle(fontSize: 40, color: colorScheme.onSurface),
+            ),
           ],
         ),
       ),

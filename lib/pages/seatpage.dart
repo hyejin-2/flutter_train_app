@@ -19,9 +19,11 @@ class _SeatPageState extends State<SeatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme; // ColorScheme 가져오기
     return Scaffold(
       appBar: AppBar(title: const Text('좌석 선택')),
-      backgroundColor: Color.fromARGB(255, 253, 249, 253),
+      //배경색 : 라이트/다크 둘 다 기본 색상 사용
+      backgroundColor: colorScheme.background,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -65,11 +67,13 @@ class _SeatPageState extends State<SeatPage> {
             // 상태 표시
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 SeatStateIndicator(color: Colors.purple, label: '선택됨'),
                 SizedBox(width: 20),
                 SeatStateIndicator(
-                  color: Color.fromARGB(255, 200, 200, 200),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.grey[300]!
+                      : Colors.grey[600]!, //다크에서도 일단 동일 색 구현해보기
                   label: '선택 안 됨',
                 ),
               ],
@@ -89,7 +93,6 @@ class _SeatPageState extends State<SeatPage> {
                 );
               }).toList(),
             ),
-            const SizedBox(height: 10),
 
             // 좌석 목록
             Expanded(
@@ -97,13 +100,13 @@ class _SeatPageState extends State<SeatPage> {
                 itemCount: 20,
                 itemBuilder: (context, row) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         for (var col in ['A', 'B'])
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: SeatBox(
                               id: '$row$col',
                               isSelected: selectedSeats.contains('$row$col'),
@@ -120,7 +123,7 @@ class _SeatPageState extends State<SeatPage> {
                         ),
                         for (var col in ['C', 'D'])
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: SeatBox(
                               id: '$row$col',
                               isSelected: selectedSeats.contains('$row$col'),
@@ -191,6 +194,9 @@ class _SeatPageState extends State<SeatPage> {
       barrierDismissible: true,
       barrierLabel: '',
       pageBuilder: (_, __, ___) {
+        final colorScheme = Theme.of(context).colorScheme;
+
+        final isDark = Theme.of(context).brightness == Brightness.dark;
         return Align(
           alignment: Alignment(
             0,
@@ -201,21 +207,29 @@ class _SeatPageState extends State<SeatPage> {
             child: Container(
               width: MediaQuery.of(context).size.width * 0.65, //화면의 65% 폭
               decoration: BoxDecoration(
-                color: Colors.white,
+                //라이트모드: white, 다크모드: surface+투명도
+                color: isDark
+                    ? colorScheme.surface.withOpacity(1.0)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 20), // 제목 위 여백
-                  const Text(
+                  // 다크 모드일 때 텍스트 색상 흰색
+                  Text(
                     '예매 하시겠습니까?',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : Colors.black,
+                    ),
                   ),
 
                   Text('좌석 : ${getFormattedSeats()}'),
                   const SizedBox(height: 15), //좌석 아래 간격
-                  const Divider(height: 1), //상단 가로줄
+                  const Divider(height: 1, color: Colors.grey), //상단 가로줄
                   SizedBox(
                     height: 45,
 

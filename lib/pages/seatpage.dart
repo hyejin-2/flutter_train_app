@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../components/seat_widgets.dart';
 
+//선택된 좌석 상태 관리를 해야하므로 State 사용
 class SeatPage extends StatefulWidget {
-  final String departure;
-  final String destination;
+  final String departure; //출발역
+  final String destination; //도착역
   const SeatPage({
     super.key,
     required this.departure,
@@ -14,21 +15,22 @@ class SeatPage extends StatefulWidget {
   State<SeatPage> createState() => _SeatPageState();
 }
 
+//실제 좌석 선택 로직을 담는 State 클래스
 class _SeatPageState extends State<SeatPage> {
-  final Set<String> selectedSeats = {};
+  final Set<String> selectedSeats = {}; //선택된 좌석 저장
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme; // ColorScheme 가져오기
+    final colorScheme = Theme.of(context).colorScheme; // 현재 테마 색상 가져오기
     return Scaffold(
       appBar: AppBar(title: const Text('좌석 선택')),
       //배경색 : 라이트/다크 둘 다 기본 색상 사용
       backgroundColor: colorScheme.background,
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20), //전체 패딩
         child: Column(
           children: [
-            // 경로 표시
+            //출발역 -> 도착역 경로 표시
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,7 +66,7 @@ class _SeatPageState extends State<SeatPage> {
             ),
             const SizedBox(height: 20),
 
-            // 상태 표시
+            //좌석 상태 안내: 선택됨/선택 안 됨
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -73,14 +75,14 @@ class _SeatPageState extends State<SeatPage> {
                 SeatStateIndicator(
                   color: Theme.of(context).brightness == Brightness.light
                       ? Colors.grey[300]!
-                      : Colors.grey[600]!, //다크에서도 일단 동일 색 구현해보기
+                      : Colors.grey[600]!,
                   label: '선택 안 됨',
                 ),
               ],
             ),
             const SizedBox(height: 20),
 
-            // 열 레이블
+            // 좌석 열 레이블 (A,B,C,D)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: ['A', 'B', '', 'C', 'D'].map((label) {
@@ -94,16 +96,17 @@ class _SeatPageState extends State<SeatPage> {
               }).toList(),
             ),
 
-            // 좌석 목록
+            //좌석 목록 20줄
             Expanded(
               child: ListView.builder(
-                itemCount: 20,
+                itemCount: 20, //20줄
                 itemBuilder: (context, row) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8), //줄 간격
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        //왼쪽 2개 좌석
                         for (var col in ['A', 'B'])
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -113,6 +116,7 @@ class _SeatPageState extends State<SeatPage> {
                               onTap: () => toggleSeat('$row$col'),
                             ),
                           ),
+                        //줄 번호
                         Container(
                           width: 50,
                           alignment: Alignment.center,
@@ -121,6 +125,7 @@ class _SeatPageState extends State<SeatPage> {
                             style: const TextStyle(fontSize: 18),
                           ),
                         ),
+                        //오른쪽 2개 좌석
                         for (var col in ['C', 'D'])
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -138,14 +143,14 @@ class _SeatPageState extends State<SeatPage> {
             ),
             const SizedBox(height: 20),
 
-            // 예매 버튼
+            // 예매하기 버튼
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
                 onPressed: selectedSeats.isEmpty
                     ? null
-                    : showConfirmationDialog,
+                    : showConfirmationDialog, //좌석 선택 없으면 비활성화
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,
                   shape: RoundedRectangleBorder(
@@ -168,6 +173,7 @@ class _SeatPageState extends State<SeatPage> {
     );
   }
 
+  //좌석 선택/해제 함수
   void toggleSeat(String id) {
     setState(() {
       if (selectedSeats.contains(id)) {
@@ -178,6 +184,7 @@ class _SeatPageState extends State<SeatPage> {
     });
   }
 
+  //선택된 좌석 번호 변환
   String getFormattedSeats() {
     return selectedSeats
         .map((id) {
@@ -188,10 +195,11 @@ class _SeatPageState extends State<SeatPage> {
         .join(', ');
   }
 
+  //예매 확인 다이얼로그 띄우기
   void showConfirmationDialog() {
     showGeneralDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: true, //바깥 클릭 시 닫힘
       barrierLabel: '',
       pageBuilder: (_, __, ___) {
         final colorScheme = Theme.of(context).colorScheme;
@@ -203,14 +211,14 @@ class _SeatPageState extends State<SeatPage> {
             -0.03,
           ), // Alignment(x, y) 로 좌우(X): -1(왼쪽 끝) ~ 0(가운데) ~ +1(오른쪽 끝)·상하(Y): -1(위쪽 끝) ~ 0(가운데) ~ +1(아래쪽 끝) 위치를 정함
           child: Material(
-            color: Colors.transparent,
+            color: Colors.transparent, //배경 투명
             child: Container(
               width: MediaQuery.of(context).size.width * 0.65, //화면의 65% 폭
               decoration: BoxDecoration(
                 //라이트모드: white, 다크모드: surface+투명도
                 color: isDark
                     ? colorScheme.surface.withOpacity(1.0)
-                    : Colors.white.withOpacity(0.95),
+                    : Colors.white.withOpacity(0.95), //모드별 투명도
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
@@ -231,12 +239,12 @@ class _SeatPageState extends State<SeatPage> {
                   const SizedBox(height: 15), //좌석 아래 간격
                   const Divider(
                     height: 1,
-                    thickness: 0.5,
+                    thickness: 0.5, // 가로줄 두께
                     color: Colors.grey,
-                  ), //상단 가로줄
+                  ),
+
                   SizedBox(
                     height: 45,
-
                     child: Row(
                       children: [
                         Expanded(
@@ -249,9 +257,8 @@ class _SeatPageState extends State<SeatPage> {
                           ),
                         ),
 
-                        //세로줄
                         Container(
-                          width: 0.5,
+                          width: 0.5, //세로줄 두께
                           height: double.infinity,
                           color: Colors.grey,
                         ),

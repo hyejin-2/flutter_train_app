@@ -11,25 +11,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      themeMode: ThemeMode
-          .light, //  themeMode: ThemeMode.system, 시스템 설정에 따라 다크/라이트 자동 전환 < 마지막에 수정할 것
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, //우측 상단 Debug 배너 제거
 
-      //라이트
+      themeMode: ThemeMode.system, // test 완료 후 시스템 다크/라이트 모드 자동 적용
+      // themeMode: ThemeMode.light, test하면서 검토 진행
+
+      //라이트 모드
       theme: ThemeData(
-        useMaterial3: true,
+        useMaterial3: true, //material 디자인3 사용
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
-          brightness: Brightness.light, // 여기서 지정
+          brightness: Brightness.light,
         ),
       ),
 
-      //다크
+      //다크 모드
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
-          brightness: Brightness.dark, // 여기서 지정
+          brightness: Brightness.dark,
         ),
       ),
 

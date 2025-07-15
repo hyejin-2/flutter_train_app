@@ -10,10 +10,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+//실제 상태 관리 클래스
 class _HomePageState extends State<HomePage> {
-  String? departure;
-  String? destination;
+  String? departure; //출발역 이름
+  String? destination; //도착역 이름
 
+  //역 선택 화면으로 이동 후 결과 처리
   void selectStation(bool isDeparture) async {
     final result = await Navigator.push(
       context,
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
+    //선택된 역이 있으면 상태 갱신
     if (result != null) {
       setState(() {
         if (isDeparture) {
@@ -36,6 +39,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  //좌석 선택 페이지로 이동
   void goToSeatPage() {
     if (departure != null && destination != null) {
       Navigator.push(
@@ -50,17 +54,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = Theme.of(context).colorScheme; //테마 색 가져오기
 
     return Scaffold(
-      //라이트모드 지정 배경색 / 다크 모드 배경색은 기본
+      //배경색: 모드에 따라 변경 (라이트모드 지정, 다크 모드 기본)
       backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Colors.grey[200]
           : Theme.of(context).colorScheme.background,
 
       appBar: AppBar(
         title: const Text('기차 예매'),
-        //AppBar 배경: surface
         backgroundColor: colorScheme.surface,
         elevation: 0,
         foregroundColor: colorScheme.onSurface,
@@ -71,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, //body 내 위젯 세로 가운데 정렬
+          mainAxisAlignment: MainAxisAlignment.center, //body 내 위젯 세로 중앙 정렬
           children: [
             Container(
               height: 200,
@@ -117,7 +120,7 @@ class _HomePageState extends State<HomePage> {
               width: double.infinity,
               height: 50,
               child: FilledButton(
-                // ✅ Material 3 기본 버튼: FilledButton!
+                // Material 3 기본 버튼: FilledButton!
                 onPressed: (departure != null && destination != null)
                     ? goToSeatPage
                     : null,
@@ -145,6 +148,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //출발역, 도착역 선택 박스
   Widget stationBox(String label, String? value, VoidCallback onTap) {
     final colorScheme = Theme.of(context).colorScheme;
 

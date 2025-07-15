@@ -32,93 +32,44 @@ Flutter 기차 예매 서비스
 <br/>
 
 ## 과제 일정
-25/07/02~25/07/04
+25/07/09~25/07/15
 
 <br/>
 
-## Hint: 과제 요소 (필수 정의)
-### 게임을 정의하기 위한 Game 클래스
-속성 (Property)
-- 캐릭터 (`Character`)
-- 몬스터 리스트 (`List<Monster>`)
-- 물리친 몬스터 개수(`int`): 몬스터의 리스트의 개수보다 클 수 없음
+## UI 디자인 명세
 
-메서드 (Method)
-- 게임을 시작하는 메서드 (`startGame()`)  
-캐릭터의 체력이 0 이하가 되면 게임 종료  
-몬스터를 물리칠 때마다 다음 몬스터와 대결할 건지 선택 가능  
-(예) `다음 몬스터와 대결하시겠습니까? (y/n)`  
-설정한 물리친 몬스터 개수만큼 몬스터를 물리치면 게임에서 승리  
-- 전투를 진행하는 메서드 (`battle()`)  
-게임 중에 사용자는 매 턴마다 행동을 선택할 수 있음  
-(예) 공격하기(1), 방어하기(2)  
-매 턴마다 몬스터는 사용자에게 공격만 가함  
-캐릭터는 몬스터 리스트에 있는 몬스터들 중 랜덤으로 뽑혀서 대결 함  
-처치한 몬스터는 몬스터 리스트에서 삭제  
-캐릭터의 체력은 대결 간에 누적  
-- 랜덤으로 몬스터를 불러오는 메서드(`getRandomMonster()`)  
-`Random()` 을 사용하여 몬스터 리스트에서 랜덤으로 몬스터를 반환하여 대결
+### HomePage
+  <img alt="HomePage이미지" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FqdG4T%2FbtsPiKIe7Bn%2FAAAAAAAAAAAAAAAAAAAAAEGve-zPJFYZ_eOvBEe_sBcSRaGL-GuhCd8HzESwDPWQ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DodYNSDK3x9pRPs6heLvvTjDc6C4%253D"/>
 
-[힌트]
-- 반복문을 사용하여 몬스터를 랜덤으로 뽑으며 순회하면서 대결 진행  
+### StationListPage
+  <img alt="StationListPage이미지" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbBBwRb%2FbtsPkqn0AsG%2FAAAAAAAAAAAAAAAAAAAAAJmqNgk9fp4HdKTCtOFc7qknrODwxQYtoyZdDAtnMM6V%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3D0oKgLjEn9Dvr7Ki0NVaZD5x%252BXO8%253D"/>
 
-### 캐릭터를 정의하기 위한 Character 클래스
-속성 (Property)
-- 이름 (`String`)
-- 체력 (`int`)
-- 공격력 (`int`)
-- 방어력 (`int`)
+### SeatPage
+  <img alt="SeatPage이미지1" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FuxraO%2FbtsPj0JVTie%2FAAAAAAAAAAAAAAAAAAAAAGk70suD28-jXyPfACqtiIE5ZMhvELpm-TX_BO1Hc4Bj%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DGaa1of8eBOUEHt%252Bqy1kfm8jj2zo%253D"/>
 
-메서드 (Method)
-- 공격 메서드 (`attackMonster(Monster monster)`)  
-몬스터에게 공격을 가하여 피해를 입힙니다.
-- 방어 메서드 (`defend()`)  
-방어 시 특정 행동 수행  
-(예) 대결 상대인 몬스터가 입힌 데미지만큼 캐릭터의 체력을 상승시킴  
-- 상태를 출력하는 메서드 (`showStatus()`)  
-캐릭터의 현재 체력, 공격력, 방어력을 매 턴마다 출력
-
-### 몬스터를 정의하기 위한 Monster 클래스
-속성 (Property)
-- 이름 (`String`)
-- 체력 (`int`)
-- 랜덤으로 지정할 공격력 범위 최대값 (`int`)  
-몬스터의 공격력은 캐릭터의 방어력보다 작을 수 없음  
-랜덤으로 지정하여 캐릭터의 방어력과 랜덤 값 중 최대값으로 설정해  
-- 방어력(`int`) = 0  
-몬스터의 방어력은 0이라고 가정
-
-메서드 (Method)
-- 공격 메서드 (`attackCharacter(Character character)`)  
-캐릭터에게 공격을 가하여 피해를 입힘  
-캐릭터에게 입히는 데미지는 몬스터의 공격력에서 캐릭터의 방어력을 뺀 값이며, 최소 데미지는 0 이상임  
-- 상태를 출력하는 메서드 (`showStatus()`)  
-몬스터의 현재 체력과 공격력을 매 턴마다 출력합니다.
+  <img alt="SeatPage이미지2" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FrZMCb%2FbtsPjLzu0bR%2FAAAAAAAAAAAAAAAAAAAAAFqlg44E27i9gkEQQs5kbXsm-bG5nUcZMVqQ9xRAVicS%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DN24KdeBxD%252BqzIAHSDYTY454gE30%253D"/>
 
 <br/>
 
 ## 필수 기능 가이드
 
-### 1. 파일로부터 데이터 읽어오기 기능
-[설명]
-- 게임(`Game` 클래스) 시작 시 캐릭터와 몬스터의 스탯을 파일에서 읽어옵니다
-  <img alt="txt이미지" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fdel0d3%2FbtsO2kC4IAh%2FAAAAAAAAAAAAAAAAAAAAAKXAUewK3KPpSlrt694DST1XPabwuML8a1cW7eNd9LyV%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3D69O3at%252BeZrp1denchx1wOYDAYWU%253D"/>
+### 1. HomePage 구현
+[출발역선택영역]
+- 터치 시 `StationListPage` 로 이동  
+- `StationListPage`에서 역 선택 시 선택한 역으로 문자열 변경  
+- 선택한 역이 없는 초기 상태에서는 `선택` 문구 출력  
 
-[조건]
-- 캐릭터의 스탯은 `characters.txt` 파일에서 읽어옵니다.  
-- 몬스터들의 스탯은 `monsters.txt` 파일에서 읽어옵니다.  
-- 파일의 데이터는 CSV 형식으로 되어 있습니다.  
-- 예시  
-캐릭터 → 체력, 공격력, 방어력  
-몬스터 →이름, 체력, 공격력 최대값(설정된 최대값에서 `Random()` 을 사용하여 공격력 지정)
+[도착역선택영역]
+- 터치 시 `StationListPage` 로 이동  
+- `StationListPage`에서 역 선택 시 선택한 역으로 문자열 변경  
+- 선택한 역이 없는 초기 상태에서는 `선택` 문구 출력  
 
-[힌트]
-- dart:io 라이브러리의 File 클래스를 사용하여 파일을 읽습니다.  
-- `Rsplit()`R 메서드를 사용하여 CSV 데이터를 분리한 후 변수(health, attack, defense)에 선언해줍니다.  
-- 심화: 동기/비동기 두가지 방식으로 파일을 불러올 수 있습니다.
+[좌석선택버튼]
+- 터치 시 `SeatPage`로 이동  
+- 출발역, 도착역 모두 선택되어 있지 않을 경우 이동하지 않음  
 
-### 2. 사용자로부터 캐릭터 이름 입력받기 기능
-[설명]
+### 2. StationListPage 구현
+[앱바타이틀]
 - 게임 시작 시 사용자가 캐릭터의 이름을 입력합니다.
 
 [조건]

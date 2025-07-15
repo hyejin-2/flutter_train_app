@@ -158,7 +158,7 @@ Flutter 기차 예매 서비스
 <br/>
 
 ## Trouble Shooting
-#### 1. SeatPage에서 출발역/도착역 표기 가운데 정렬
+### 1. SeatPage에서 출발역/도착역 표기 가운데 정렬
 [상황]
 - 출발역은 중앙 정렬되었으나 도착역은 수평 중앙 정렬이 안됨
 
@@ -169,13 +169,13 @@ Flutter 기차 예매 서비스
 - Row의 crossAxisAlignment를 CrossAxisAlignment.center로 설정
 - 각 Text 위젯에 textAlign: TextAlign.center를 적용해 내부에서도 텍스트 중앙 정렬되도록 함
 
-#### 2. AppBar / Background 기본 색상 구분
+### 2. AppBar / Background 기본 색상 구분
 [상황]
 - AppBar 배경색과 Scaffold 배경색이 디자인 가이드에 맞지 않음
 - 라이트/다크 모드 전환 시 AppBar와 배경이 구분이 안됨
 
 [원인]
-- ThemeData의 colorScheme.surface, background 혼동
+- ThemeData의 colorScheme.surface, background 혼동  
 Scaffold.backgroundColor와 AppBar.backgroundColor를 동일한 colorScheme 값으로 지정함(?)
 - Material 개념
 
@@ -184,7 +184,7 @@ Scaffold.backgroundColor와 AppBar.backgroundColor를 동일한 colorScheme 값�
 - AppBar는 colorScheme.surface로 분리해 Scaffold 배경과 구분 
 - 다크 모드 Theme.of(context).colorScheme 적용
 
-#### 3. 다크 모드 시 색상만 변경
+### 3. 다크 모드 시 색상만 변경
 [상황]
 - 다크 모드로 전환 시 레이아웃, 위젯도 함께 변경
 - 레이아웃 구조 유지하면서 색상만 모드에 맞게 변경되길 원함

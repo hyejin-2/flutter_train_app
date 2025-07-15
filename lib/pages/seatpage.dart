@@ -210,7 +210,7 @@ class _SeatPageState extends State<SeatPage> {
                 //라이트모드: white, 다크모드: surface+투명도
                 color: isDark
                     ? colorScheme.surface.withOpacity(1.0)
-                    : Colors.white,
+                    : Colors.white.withOpacity(0.95),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
@@ -229,7 +229,11 @@ class _SeatPageState extends State<SeatPage> {
 
                   Text('좌석 : ${getFormattedSeats()}'),
                   const SizedBox(height: 15), //좌석 아래 간격
-                  const Divider(height: 1, color: Colors.grey), //상단 가로줄
+                  const Divider(
+                    height: 1,
+                    thickness: 0.5,
+                    color: Colors.grey,
+                  ), //상단 가로줄
                   SizedBox(
                     height: 45,
 
@@ -240,14 +244,14 @@ class _SeatPageState extends State<SeatPage> {
                             onPressed: () => Navigator.pop(context),
                             child: const Text(
                               '취소',
-                              style: TextStyle(color: Colors.red),
+                              style: TextStyle(fontSize: 18, color: Colors.red),
                             ),
                           ),
                         ),
 
                         //세로줄
                         Container(
-                          width: 1,
+                          width: 0.5,
                           height: double.infinity,
                           color: Colors.grey,
                         ),
@@ -260,7 +264,10 @@ class _SeatPageState extends State<SeatPage> {
                             },
                             child: const Text(
                               '확인',
-                              style: TextStyle(color: Colors.blue),
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.blue,
+                              ),
                             ),
                           ),
                         ),

@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode
-          .dark, //  themeMode: ThemeMode.system, 시스템 설정에 따라 다크/라이트 자동 전환 < 마지막에 수정할 것
+          .light, //  themeMode: ThemeMode.system, 시스템 설정에 따라 다크/라이트 자동 전환 < 마지막에 수정할 것
       debugShowCheckedModeBanner: false,
 
       //라이트

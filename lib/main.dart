@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //우측 상단 Debug 배너 제거
-      themeMode: ThemeMode.system, // test 완료 후 시스템 다크/라이트 모드 자동 적용
+      themeMode: ThemeMode.system, // test 완료 후 시스템 모드 자동 적용
       // themeMode: ThemeMode.light, //test하면서 검토 진행
 
       //라이트 모드

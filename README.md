@@ -36,8 +36,12 @@ Flutter 기차 예매 서비스
 
 <br/>
 
-## UI 디자인 명세
+## 앱 UI Flow
+  <img alt="UIFlow1" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FFJ7ux%2FbtsPj1aW6Nm%2FAAAAAAAAAAAAAAAAAAAAAPEhIj9CXSrZd1mQKVsVO629yaNP_fsws1KGPlyFsDXR%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DgVyCTJN2i5H64AtkFWTyu5gF7Lk%253D"/>
+  <img alt="UIFlow2" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbabaJn%2FbtsPk5RdAGl%2FAAAAAAAAAAAAAAAAAAAAAPGbZ6ipfFPhcHUerR2abdOL7-Dm670BIhKtEQLGxgRR%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DfZnK8gOt63Cvp5Nig9KHcTpYABQ%253D"/>
+  <img alt="UIFlow3" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fdotts3%2FbtsPjlnNb2U%2FAAAAAAAAAAAAAAAAAAAAAEBthL92rcrOrUOmu4w8bipRSfW52fOdotrmW_D_SyKZ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DOzk4zdBAsI4m5Wdh%252F1b0dxSaCNk%253D"/>
 
+## UI 디자인 명세
 ### HomePage
   <img alt="HomePage이미지" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FqdG4T%2FbtsPiKIe7Bn%2FAAAAAAAAAAAAAAAAAAAAAEGve-zPJFYZ_eOvBEe_sBcSRaGL-GuhCd8HzESwDPWQ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DodYNSDK3x9pRPs6heLvvTjDc6C4%253D"/>
 
@@ -81,92 +85,69 @@ Flutter 기차 예매 서비스
 - `수서, 동탄, 평택지제, 천안아산, 오송, 대전, 김천구미, 동대구, 경주, 울산, 부산` 고정된 값 출력  
 
 [기차역아이템]
-- 각 기차역 이름을 터치 시 해당 역 이름을 반환하며 뒤로가기.  
+- 각 기차역 이름을 터치 시 해당 역 이름을 반환하며 뒤로가기  
 (`HomePage`의 출발역 또는 도착역 변경)
   
-### 3. 게임 종료 후 결과를 파일에 저장하는 기능
-[설명]
-- 게임 종료 후 결과를 파일에 저장합니다.
+### 3. SeatPage 구현
+[출발역]
+- `HomePage`에서 선택한 출발역을 전달받아 출력  
 
-[조건]
-- `결과를 저장하시겠습니까? (y/n)`를 출력합니다.  
-- 사용자의 입력에 따라 결과를 result.txt 파일에 저장합니다.  
-- 저장되는 내용은 캐릭터의 이름, 남은 체력, 게임 결과(승리/패배)*입니다.
+[도착역]
+- `HomePage`에서 선택한 도착역을 전달받아 출력  
 
-[힌트]
-- File 클래스의 `writeAsStringSync()` 을 이용하여 파일을 저장할 수 있습니다.
+[좌석상태안내레이블]
+- 선택되었을때와 미선택시의 색상 안내 
+보라색 박스 옆 텍스트는 `선택됨`, 회색박스 옆 텍스트는 `선택 안 됨`
 
-### 4. 캐릭터와 몬스터의 공통되는 부분을 추상화하여, 추상 클래스 구현
-[설명]
-- Character 클래스와 Monster 클래스에서 공통되는 부분을 추상화하여, 이를 추상 클래스로 만들고,  
-두 클래스가 이 추상 클래스를 상속받도록 코드를 구현합니다.
+[좌석리스트]
+- 총 20개의 리스트 아이템
 
-[조건]
-- 추상 클래스에서 공통으로 사용되는 변수 선언
-- 상속 받는 클래스에서 함수 재정의 하기. 함수 재정의는 아래와 같은 형식
-  <img alt="4_조건이미지" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F0Erhw%2FbtsO4jJcUBT%2FAAAAAAAAAAAAAAAAAAAAAO6uUFarXLpM71AKtb19wGszmxbSQov5pWKYpQb2NGCl%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3Dw2GHXRSzjOWMV6%252FNNwxI1QnGYpk%253D"/>
+[좌석위젯]
+- 초기 상태는 모두 회색
+- 좌석 터치 시 색상 보라색으로 변경
 
-[힌트]
-- abstract class 키워드를 사용하여 추상 클래스를 선언
-- extends 키워드를 사용하여 클래스를 상속
-- @override 어노테이션을 사용하여 메서드를 재정의
-- 몬스터 클래스의 경우 방어력을 0으로 설정
-
-<br/>
+[예매하기버튼]
+- 선택된 좌석이 없으면 아무런 반응 X
+- 선택된 좌석이 있으면 터치 시 아래의 `showCupertinoDialog` 출력
+- `취소` 누를 시 Dialog 제거
+- `확인` 누를 시 `HomePage`로 이동(뒤로가기 두번)
 
 ## 주의 사항
-- 예외 처리를 통해 파일이 없거나 잘못된 형식의 데이터를 읽었을 때 프로그램이 종료되지 않도록 합니다.
-- 사용자 입력에 대한 검증을 철저히 하여 예상치 못한 입력으로 인한 오류를 방지합니다.
-- 코드의 재사용성과 가독성을 높이기 위해 함수와 클래스를 적절히 활용합니다.
-
-<br/>
-
-## 코드 실행 예시
-  <img alt="전투 RPG 게임 이미지" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FlTVq5%2FbtsO41BiWpJ%2FAAAAAAAAAAAAAAAAAAAAAAKfqU7LLQbzNwJdmIhxdgWaIEyLu2mBiGByuMJ5v0Xu%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3D3sQPKvMlxnyg0xn6NkGONMQpKlY%253D"/>
+- 과제에서 주어진 기본 요소와 UI 명세를 반드시 따라야 합니다.
+- **예외 처리**를 통해 특수 상황에서 프로그램이 종료되지 않도록 합니다.
+- 사용자 입력에 대한 **검증을 철저히** 하여 예상치 못한 입력으로 인한 오류를 방지합니다.
+- 코드의 **재사용성**과 **가독성**을 높이기 위해 함수와 클래스를 적절히 활용합니다.
 
 <br/>
 
 ## 도전 기능 가이드
 모든 정답 코드는 기존의 필수 기능 정답 코드를 반영합니다.  
-### 1. 캐릭터의 체력 증가 기능 추가
-[설명]  
-- 30%의 확률로 캐릭터에게 보너스 체력을 제공합니다.  
 
-[조건]
-- 게임이 시작되고 캐릭터의 데이터를 불러온 후 해당 기능을 호출합니다.
-- 30%의 확률로 `character`의 `health`를 `10` 증가 시킵니다.
-- 보너스 체력을 얻었을 시 아래와 같이 출력합니다.  
-출력 예시 `'보너스 체력을 얻었습니다! 현재 체력: ${character.health}'`
+### 1. 위젯 컴포넌트 화
+[기능]
+- 앱 내에서 사용되는 `버튼`, `좌석박스` 등 반복적으로 사용되는 부분을 별도의 위젯으로 분리하여 재사용 해봅시다.
+- 재사용이 되지 않더라도 하나의 파일 내 스크롤이 너무 길다면 각 부분을 별도의 위젯으로 나누어 봅시다.
 
-[힌트]
-- Random 함수를 이용하여 확률 기능을 제공할 수 있습니다.
-
-### 2. 전투 시 캐릭터의 아이템 사용 기능 추가
-[설명]
-- 캐릭터가 전투 중에 한 번 특수 아이템을 사용할 수 있는 기능을 구현합니다.
-
-[조건]
-- 전투 중 사용자가 `3`을 입력하면 아이템을 사용합니다.
-- 아이템이 사용되었는지 확인하는 변수를 추가합니다.
-- 아이템을 사용했다면 다시 사용할 수 없도록 처리합니다.
-- 아이템 사용 시 캐릭터는 한 턴 동안 공격력이 두 배로 변경됩니다.
+### 2. UX(사용자 경험)를 고려한 기능
+[기능]
+- 부산역에서 부산역으로 가는 열차는 없겠죠?  
+사용자가 출발역(A역)을 선택한 뒤 도착역을 고를 때 도착역 선택 페이지에서 출발역(A역)을 제외한 역 목록을 보여주세요.  
+반대의 경우도 동일합니다. 도착역(B역)을 선택한 뒤 출발역을 고를 때 출발역 선택 페이지에서 도착역(B역)을 볼 수 없도록 만들어주세요.  
 
 [힌트]
-- `character` 클래스 내에서 아이템 사용 여부를 확인하는 변수와 아이템 사용을 처리하는 함수를 작성합니다.
+- 사용자가 역을 고르면 기차역 선택 페이지가 이를 인지해야 합니다.  
+- 다음에 고르는 페이지에서 이미 선택한 역을 제외한 목록을 보여주세요.  
 
-### 3. 몬스터의 방어력 증가 기능 추가
-[설명]
-- 몬스터의 방어력을 특정 턴마다 증가시킵니다.
-- 방어력 증가로 인하여 캐릭터가 몬스터에게 입히는 데미지가 줄어들게 됩니다.
-
-[조건]
-- 3턴마다 방어력이 2씩 증가하도록 함수를 작성합니다.
-- 방어력 증가 시 출력 문구는 아래로 작성합니다.  
-`'${name}의 방어력이 증가했습니다! 현재 방어력: $defense’`
+### 3. 다크 테마 적용
+[기능]
+- 앱에 다크 테마 적용
 
 [힌트]
-- 방어력이 증가하였는지를 확인할 카운터 변수를 선언합니다.
-- 3턴마다 몬스터의 방어력이 2가 증가하면 카운터 변수를 0으로 초기화 합니다.
+- MaterialApp 의 theme, darkTheme 속성을 이용합니다.
+- Scaffold 배경색 테마 지정은 ThemeData의 `scaffoldBackgroundColor` 속성을 이용합니다.
+
+[예시화면]
+  <img alt="다크테마적용" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FldUDk%2FbtsPkPARKUt%2FAAAAAAAAAAAAAAAAAAAAABL88AWmPChSLoaDT6PQJk4jdirgQhHe_gkpfTGzImyF%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1753973999%26allow_ip%3D%26allow_referer%3D%26signature%3DflXbmN0J%252FmJHEKcz9SNwE6tmg80%253D"/>
 
 <br/>
 
